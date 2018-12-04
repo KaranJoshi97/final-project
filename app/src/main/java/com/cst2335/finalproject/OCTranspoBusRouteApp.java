@@ -128,6 +128,7 @@ public class OCTranspoBusRouteApp extends Activity {
         @Override
         protected String doInBackground(String... strings) {
             XmlPullParser xmlPullParser = Xml.newPullParser();
+            publishProgress(25);
             try {
                 /* The URL for the web browser */
                 System.out.println(strings[0]);
@@ -203,6 +204,7 @@ public class OCTranspoBusRouteApp extends Activity {
                 XmlPullParser parser = Xml.newPullParser();
                 //parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                 parser.setInput(in, null);
+                publishProgress(50);
                 while ((parser.getName() == null || !parser.getName().equals("Route")) && parser.next() !=  XmlPullParser.END_DOCUMENT) {
                     System.out.println(parser.getName());
                     if (parser.getName() != null && parser.getName().equals("StopNo")){
@@ -221,13 +223,13 @@ public class OCTranspoBusRouteApp extends Activity {
         private void readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
             Log.i(ACTIVITY_NAME, "in ReadFeed()");
             parser.require(XmlPullParser.START_TAG, ns, "Route");
+            publishProgress(75);
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
                 if (parser.getEventType() == parser.START_TAG) {
                     Log.i(ACTIVITY_NAME, "Iterating the XML tags");
                     System.out.println(parser.getName());
                     if (parser.getName().equals("RouteNo")) {
                         route_number.add(""+parser.nextText());
-                        //publishProgress(25);
                         Log.i(ACTIVITY_NAME, "Route number is working");
                     }
                     if (parser.getName().equals("DirectionID")) {
@@ -267,6 +269,7 @@ public class OCTranspoBusRouteApp extends Activity {
 
                 }
             }
+            publishProgress(100);
         }
 
 

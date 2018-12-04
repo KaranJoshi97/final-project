@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/bus_frame"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/input_line_number">
+        android:layout_above="@+id/progress_bar">
     </FrameLayout>
 
     <ProgressBar
@@ -23,7 +23,7 @@
         android:id="@+id/progress_bar"
         android:layout_above="@+id/input_line_number"
         android:visibility="invisible"
-        android:layout_gravity="bottom"/>
+        style="?android:attr/progressBarStyleHorizontal"/>
 
 
     <EditText

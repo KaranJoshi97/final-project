@@ -103,6 +103,7 @@ public class MovieInformation extends Activity {
 
                 String info = "";
                 URL url;
+                publishProgress(25);
                 try {
                     url = new URL(args[0]);
                 } catch (MalformedURLException e) {
@@ -172,6 +173,7 @@ public class MovieInformation extends Activity {
             Log.i(ACTIVITY_NAME, "in ReadFeed()");
 
             parser.require(XmlPullParser.START_TAG, ns, "root");
+            publishProgress(50);
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
                 Log.i(ACTIVITY_NAME, "reading feed");
                 if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -181,6 +183,7 @@ public class MovieInformation extends Activity {
                 // Starts by looking for the entry tag
 
                 if (name.equals("movie")) {
+                    publishProgress(75);
                     Log.i(ACTIVITY_NAME, "found movie");
                     title = parser.getAttributeValue(null, "title");
                     year = parser.getAttributeValue(null, "year");
@@ -194,6 +197,7 @@ public class MovieInformation extends Activity {
                     skip(parser);
                 }
             }
+            publishProgress(100);
         }
 
         private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
