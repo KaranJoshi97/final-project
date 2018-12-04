@@ -3,6 +3,7 @@ package com.cst2335.finalproject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,9 @@ import android.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -21,6 +25,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -39,7 +44,6 @@ import java.util.List;
 
 public class MovieInformation extends Activity {
 
-    private ListView listView;
     private ProgressBar progress;
     private Button send, saved;
     private EditText search;
@@ -52,6 +56,9 @@ public class MovieInformation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_information);
         Log.i(ACTIVITY_NAME, "in onCreate()");
+        Toolbar toolbar =
+                (Toolbar)findViewById(R.id.toolbar);
+        setActionBar(toolbar);
         progress = findViewById(R.id.movieprogress);
         send = findViewById(R.id.moviesearch);
         search = findViewById(R.id.movieedit);
@@ -71,6 +78,37 @@ public class MovieInformation extends Activity {
             }
         });
         setLanding();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent nextScreen;
+        switch (item.getItemId()){
+            case (R.id.OCTranspo_menuitem):
+                nextScreen = new Intent(MovieInformation.this, OCTranspoBusRouteApp.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Movie_menuitem):
+                nextScreen = new Intent(MovieInformation.this, MovieInformation.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Food_menuitem):
+                nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.CBC_menuitem):
+                nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+        }
+        return false;
     }
 
     protected String formatSearch(String s){

@@ -17,16 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/movieposter"/>
-    <TextView
-        android:id="@+id/movieyear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movietitle"/>
+
     <TextView
         android:id="@+id/movierating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movieyear"/>
+        android:layout_below="@id/movietitle"/>
     <TextView
         android:id="@+id/movieruntime"
         android:layout_width="wrap_content"

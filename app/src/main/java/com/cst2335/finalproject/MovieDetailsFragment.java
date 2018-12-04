@@ -93,8 +93,8 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        this.title.setText(t);
-        this.year.setText(y);
+        this.title.setText(t+"("+y+")");
+        //this.year.setText(y);
         this.rating.setText(ra);
         this.runtime.setText(ru);
         this.actors.setText(a);
@@ -103,23 +103,13 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     public void setInfo(String title, String year, String rating, String runtime, String actors, String plot, String poster) {
-        if (this.title != null && this.year != null && this.rating != null && this.runtime != null && this.actors != null && this.plot != null && this.poster != null) {
-            this.title.setText(title);
-            this.year.setText(year);
-            this.rating.setText(rating);
-            this.runtime.setText(runtime);
-            this.actors.setText(actors);
-            this.plot.setText(plot);
-            new RetrievePosterTask().execute(poster);
-        } else {
-            t = title;
-            y = year;
-            ra = rating;
-            ru = runtime;
-            a = actors;
-            p = plot;
-            po = poster;
-        }
+        t = title;
+        y = year;
+        ra = ("Rated: "+rating);
+        ru = ("Runtime: "+runtime);
+        a = actors;
+        p = plot;
+        po = poster;
     }
 
     class RetrievePosterTask extends AsyncTask<String, Integer, Bitmap> {

@@ -3,12 +3,17 @@ package com.cst2335.finalproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
-public class StartProjectActivity extends Activity {
+public class StartProjectActivity extends AppCompatActivity {
 
     protected static final String ACTIVITY_NAME = "StartActivity";
 
@@ -17,10 +22,12 @@ public class StartProjectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_project);
         Log.i(ACTIVITY_NAME, "In onCreate()"); // Step 3 for Lab 3
-        // Log.i(ACTIVITY_NAME, "User clicked Start Chat");
 
-        // Step 6 for Lab 3
-        Button busButton = (Button) findViewById(R.id.button);
+        Toolbar toolbar =
+                (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /*Button busButton = (Button) findViewById(R.id.button);
         busButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,9 +64,44 @@ public class StartProjectActivity extends Activity {
                 Intent nextScreen = new Intent(StartProjectActivity.this, MovieInformation.class);
                 startActivityForResult(nextScreen, 50);
             }
-        });
+        });*/
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent nextScreen;
+        switch (item.getItemId()){
+            case (R.id.OCTranspo_menuitem):
+                nextScreen = new Intent(StartProjectActivity.this, OCTranspoBusRouteApp.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Movie_menuitem):
+                nextScreen = new Intent(StartProjectActivity.this, MovieInformation.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Food_menuitem):
+                nextScreen = new Intent(StartProjectActivity.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.CBC_menuitem):
+                nextScreen = new Intent(StartProjectActivity.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.menuItem):
+                //How to use the application
+                return true;
+            default:
+                return false;
+        }
     }
 
     // Step 6 for Lab 3
