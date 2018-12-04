@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,8 @@ public class MovieDetailsFragment extends Fragment {
                  cValues.put(MovieDatabaseHelper.KEY_PLOT, p);
                  cValues.put(MovieDatabaseHelper.KEY_POSTER, po);
                  db.insert(MovieDatabaseHelper.TABLE_NAME, "NullColumnName", cValues);
+                 Snackbar snackbar = Snackbar.make(save, "Added to favourites", Snackbar.LENGTH_SHORT);
+                 snackbar.show();
              }
 
         });
