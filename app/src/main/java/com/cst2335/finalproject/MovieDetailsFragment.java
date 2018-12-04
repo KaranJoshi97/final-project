@@ -31,6 +31,8 @@ import java.net.URL;
 
 
 public class MovieDetailsFragment extends Fragment {
+
+    // Variables
     private final String ACTIVITY_NAME = "MovieDetailsFragment";
     private Button save, back;
     private TextView title, year, rating, runtime, actors, plot;
@@ -40,7 +42,7 @@ public class MovieDetailsFragment extends Fragment {
     private MovieDatabaseHelper mdh;
     private SQLiteDatabase db;
 
-
+    // Empty Constructor
     public MovieDetailsFragment() {
     }
 
@@ -102,6 +104,16 @@ public class MovieDetailsFragment extends Fragment {
         new RetrievePosterTask().execute(po);
     }
 
+    /**
+     *
+     * @param title
+     * @param year
+     * @param rating
+     * @param runtime
+     * @param actors
+     * @param plot
+     * @param poster
+     */
     public void setInfo(String title, String year, String rating, String runtime, String actors, String plot, String poster) {
         t = title;
         y = year;

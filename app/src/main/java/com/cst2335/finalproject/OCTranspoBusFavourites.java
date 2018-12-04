@@ -44,6 +44,11 @@ public class OCTranspoBusFavourites extends Fragment {
         return rootView;
     }
 
+    /**
+     *
+     * @param db
+     * @param mdh
+     */
     protected void databaseToList(SQLiteDatabase db, OCTranspoDatabaseHelper mdh){
         Cursor c = db.query(true, OCTranspoDatabaseHelper.TABLE_NAME, new String[]{OCTranspoDatabaseHelper.KEY_STATION_NUMBER, OCTranspoDatabaseHelper.KEY_STATION_NAME}, OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " not null", null, null, null, null, null);
         c.moveToFirst();

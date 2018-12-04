@@ -8,13 +8,17 @@
     android:orientation="vertical"
     tools:context="com.cst2335.finalproject.OCTranspoBusRouteApp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bus_frame"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/progress_bar">
+        android:layout_above="@+id/progress_bar"
+        android:layout_below="@+id/toolbar">
     </FrameLayout>
 
     <ProgressBar

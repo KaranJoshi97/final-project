@@ -27,47 +27,8 @@ public class StartProjectActivity extends AppCompatActivity {
                 (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*Button busButton = (Button) findViewById(R.id.button);
-        busButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextScreen = new Intent(StartProjectActivity.this, OCTranspoBusRouteApp.class);
-                startActivityForResult(nextScreen, 50);
-            }
-        });
-
-        Button cbcButton = (Button) findViewById(R.id.button2);
-        cbcButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(ACTIVITY_NAME, "User clicked Start Chat");
-                Intent nextScreen = new Intent(StartProjectActivity.this, CBCNewsReader.class);
-                startActivityForResult(nextScreen, 50);
-            }
-        });
-
-        Button foodButton = (Button) findViewById(R.id.button3);
-        foodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(ACTIVITY_NAME, "User clicked Weather Forecast");
-                Intent nextScreen = new Intent(StartProjectActivity.this, FoodNutritionDatabase.class);
-                startActivityForResult(nextScreen, 50);
-            }
-        });
-
-        Button movieButton = (Button) findViewById(R.id.button4);
-        movieButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(ACTIVITY_NAME, "User clicked Test Toolbar");
-                Intent nextScreen = new Intent(StartProjectActivity.this, MovieInformation.class);
-                startActivityForResult(nextScreen, 50);
-            }
-        });*/
-
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,20 +41,24 @@ public class StartProjectActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         Intent nextScreen;
         switch (item.getItemId()){
+            // Selecting the OC Transpo option
             case (R.id.OCTranspo_menuitem):
                 nextScreen = new Intent(StartProjectActivity.this, OCTranspoBusRouteApp.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Movie option
             case (R.id.Movie_menuitem):
                 nextScreen = new Intent(StartProjectActivity.this, MovieInformation.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Food option
             case (R.id.Food_menuitem):
                 nextScreen = new Intent(StartProjectActivity.this, FoodNutritionDatabase.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the CBC option
             case (R.id.CBC_menuitem):
-                nextScreen = new Intent(StartProjectActivity.this, FoodNutritionDatabase.class);
+                nextScreen = new Intent(StartProjectActivity.this, CBCNewsReader.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.menuItem):

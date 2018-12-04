@@ -53,6 +53,11 @@ public class MovieListFragment extends Fragment {
 
     }
 
+    /**
+     *
+     * @param db
+     * @param mdh
+     */
     protected void databaseToList(SQLiteDatabase db, MovieDatabaseHelper mdh){
         Log.i(ACTIVITY_NAME, "In databaseToList");
         Cursor c = db.query(false, MovieDatabaseHelper.TABLE_NAME, new String[]{MovieDatabaseHelper.KEY_TITLE, MovieDatabaseHelper.KEY_YEAR, MovieDatabaseHelper.KEY_RATING, MovieDatabaseHelper.KEY_RUNTIME, MovieDatabaseHelper.KEY_ACTORS, MovieDatabaseHelper.KEY_PLOT, MovieDatabaseHelper.KEY_POSTER, MovieDatabaseHelper.KEY_ID}, MovieDatabaseHelper.KEY_TITLE + " not null", null, null, null, null, null);

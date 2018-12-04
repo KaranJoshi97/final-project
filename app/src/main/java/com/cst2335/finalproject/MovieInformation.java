@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
@@ -25,7 +27,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,7 +44,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieInformation extends Activity {
+public class MovieInformation extends AppCompatActivity {
 
     private ProgressBar progress;
     private Button send, saved;
@@ -58,7 +60,7 @@ public class MovieInformation extends Activity {
         Log.i(ACTIVITY_NAME, "in onCreate()");
         Toolbar toolbar =
                 (Toolbar)findViewById(R.id.toolbar);
-        setActionBar(toolbar);
+        setSupportActionBar(toolbar);
         progress = findViewById(R.id.movieprogress);
         send = findViewById(R.id.moviesearch);
         search = findViewById(R.id.movieedit);
@@ -107,10 +109,19 @@ public class MovieInformation extends Activity {
                 nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            case (R.id.menuItem):
+                //How to use the application
+                return true;
+            default:
+                return false;
         }
-        return false;
     }
 
+    /**
+     * Removes spaces from search parameter and replaces them with "+" for compatibility with omd URL.
+     * @param s Search parameter to be formatted.
+     * @return Formatted parameter.
+     */
     protected String formatSearch(String s){
         String f = "";
         String[] arr = s.toLowerCase().split(" ");
@@ -121,6 +132,16 @@ public class MovieInformation extends Activity {
         return f;
     }
 
+    /**
+     *
+     * @param title
+     * @param year
+     * @param rating
+     * @param runtime
+     * @param actors
+     * @param plot
+     * @param poster
+     */
     public void setDetailsFragment(String title, String year, String rating, String runtime, String actors, String plot, String poster){
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
@@ -136,6 +157,10 @@ public class MovieInformation extends Activity {
         }
         //
     }
+
+    /**
+     *
+     */
     public void setListFragment(){
         MovieListFragment fragment = new MovieListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
@@ -143,6 +168,9 @@ public class MovieInformation extends Activity {
         ft.commit();
     }
 
+    /**
+     *
+     */
     public void setLanding(){
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
@@ -152,6 +180,9 @@ public class MovieInformation extends Activity {
         frame.addView(landing);
     }
 
+    /**
+     *
+     */
     public void showToast(){
         Toast toast = Toast.makeText(this, "Information not found.", Toast.LENGTH_SHORT);
         toast.show();

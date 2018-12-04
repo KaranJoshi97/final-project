@@ -25,7 +25,17 @@ public class OCTranspoBusStopList extends Fragment {
 
     private ListView listView;
     private ImageView save;
-    private String stop = "", name = "";
+    /**
+     *
+     */
+    private String stop = "";
+    /**
+     *
+     */
+    private String name = "";
+    /**
+     *
+     */
     private ArrayList<String[]> list = new ArrayList<>();
     private BusStopAdapter busStopAdapter;
     private OCTranspoDatabaseHelper dbh;
@@ -63,18 +73,25 @@ public class OCTranspoBusStopList extends Fragment {
         busStopAdapter.notifyDataSetChanged();
     }
 
+    /**
+     *
+     * @param s
+     */
     public void addToList(String[] s){
         list.add(s);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setStop(String s){stop = s;}
 
+    /**
+     *
+     * @param s
+     */
     public void setName(String s){name = s;}
-
-    public void showToast(){
-        Toast toast = Toast.makeText(getActivity(), "Bus stop saved to favourites.", Toast.LENGTH_SHORT);
-        toast.show();
-    }
 
     private class BusStopAdapter extends ArrayAdapter<String[]>{
 

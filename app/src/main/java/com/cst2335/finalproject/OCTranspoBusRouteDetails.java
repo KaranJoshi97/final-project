@@ -78,10 +78,18 @@ public class OCTranspoBusRouteDetails extends Fragment {
         busRouteAdapter.notifyDataSetChanged();
     }
 
+    /**
+     *
+     * @param s
+     */
     public void addToList(String[] s){
         list.add(s);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setStop(String s){
         stop = s;
     }

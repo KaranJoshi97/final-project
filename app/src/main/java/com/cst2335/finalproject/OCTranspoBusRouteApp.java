@@ -1,43 +1,45 @@
 package com.cst2335.finalproject;
 
-import android.app.Activity;
+
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class OCTranspoBusRouteApp extends Activity {
+public class OCTranspoBusRouteApp extends AppCompatActivity {
 
     protected static final String ACTIVITY_NAME = "OCTranspoBusRouteApp";
-    private String destination;
-    private double latitude;
-    private double longitude;
-    private String startTime;
-    private String gpsSpeed;
+
     private EditText input;
     private Button search, favourites;
     private ProgressBar progressBar;
@@ -48,7 +50,9 @@ public class OCTranspoBusRouteApp extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_octranspo_bus_route_app);
         Log.i(ACTIVITY_NAME, "In onCreate");
-
+        Toolbar toolbar =
+                (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         input = findViewById(R.id.input_line_number);
         search = findViewById(R.id.get_route_button);
         search.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +75,69 @@ public class OCTranspoBusRouteApp extends Activity {
         frameLayout.addView(landing);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent nextScreen;
+        switch (item.getItemId()){
+            case (R.id.OCTranspo_menuitem):
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, OCTranspoBusRouteApp.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Movie_menuitem):
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, MovieInformation.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Food_menuitem):
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.CBC_menuitem):
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.menuItem):
+                //How to use the application
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     *
+     * @param stop
+     * @param route
+     */
     public void queryRoute(String stop, String route){
         String URL = ("https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="+stop+"&routeNo="+route);
         new OCTranpoQuery().execute(URL);
     }
 
+    /**
+     *
+     * @param stop
+     */
     public void queryStop(String stop){
         String URL = ("https://api.octranspo1.com/v1.2/GetRouteSummaryForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="+stop);
         new OCTranpoQuery().execute(URL);
     }
 
+    /**
+     *
+     * @param stop
+     * @param name
+     * @param route_number
+     * @param route_heading
+     * @param route_direction
+     * @param route_direction_id
+     */
     public void setStopDetails(String stop, String name, ArrayList<String> route_number, ArrayList<String> route_heading, ArrayList<String> route_direction, ArrayList<String> route_direction_id){
         OCTranspoBusStopList octList = new OCTranspoBusStopList();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octList).addToBackStack(null);
@@ -94,6 +151,16 @@ public class OCTranspoBusRouteApp extends Activity {
         }
     }
 
+    /**
+     *
+     * @param stop
+     * @param trip_destination
+     * @param trip_start_time
+     * @param trip_gps_speed
+     * @param trip_schedule_time
+     * @param trip_longitude
+     * @param trip_lattitude
+     */
     public void setTripDetails(String stop, ArrayList<String> trip_destination, ArrayList<String> trip_start_time, ArrayList<String> trip_gps_speed, ArrayList<String> trip_schedule_time, ArrayList<String> trip_longitude, ArrayList<String> trip_lattitude){
         OCTranspoBusRouteDetails octDetails = new OCTranspoBusRouteDetails();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octDetails).addToBackStack(null);
@@ -106,6 +173,9 @@ public class OCTranspoBusRouteApp extends Activity {
         }
     }
 
+    /**
+     *
+     */
     public void setFavouritesDetails(){
         OCTranspoBusFavourites octFavs = new OCTranspoBusFavourites();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octFavs).addToBackStack(null);
@@ -113,6 +183,9 @@ public class OCTranspoBusRouteApp extends Activity {
         ft.commit();
     }
 
+    /**
+     *
+     */
     public void showToast(){
         Toast toast = Toast.makeText(this, "Information not found.", Toast.LENGTH_SHORT);
         toast.show();
@@ -125,17 +198,47 @@ public class OCTranspoBusRouteApp extends Activity {
         private String stop_name;
         private final String ns = null;
         //Stop Info
+        /**
+         *
+         */
         private ArrayList<String> route_heading = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> route_number = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> route_direction = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> route_direction_id = new ArrayList<>();
 
         //Route Info
+        /**
+         *
+         */
         private ArrayList<String> trip_destination = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> trip_start_time = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> trip_gps_speed = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> trip_schedule_time = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> trip_longitude = new ArrayList<>();
+        /**
+         *
+         */
         private ArrayList<String> trip_lattitude = new ArrayList<>();
 
         @Override
