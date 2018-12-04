@@ -104,11 +104,17 @@ public class OCTranspoBusStopList extends Fragment {
         public View getView(final int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View result = inflater.inflate(R.layout.bus_stop, null);
+
             TextView stop = result.findViewById(R.id.bus_stop_number);
+            // get the string at position
             stop.setText("Line Number: "+(getItem(position)[1] != "" ? getItem(position)[1] : "Information not found."));
+
             TextView dir = result.findViewById(R.id.bus_stop_direction);
+            // get the string at position
             dir.setText("Direction: "+(getItem(position)[3] != "" ? getItem(position)[3] : "Information not found."));
+
             TextView heading = result.findViewById(R.id.bus_stop_heading);
+            // get the string at position
             heading.setText("Heading to: "+(getItem(position)[2] != "" ? getItem(position)[2] : "Information not found."));
             result.setOnClickListener(new View.OnClickListener() {
                 @Override

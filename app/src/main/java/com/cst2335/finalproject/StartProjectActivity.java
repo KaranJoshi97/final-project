@@ -23,12 +23,13 @@ public class StartProjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_project);
         Log.i(ACTIVITY_NAME, "In onCreate()"); // Step 3 for Lab 3
 
-        Toolbar toolbar =
-                (Toolbar)findViewById(R.id.toolbar);
+        /*
+         * Toolbar variable and setting the support action
+         */
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,14 +67,12 @@ public class StartProjectActivity extends AppCompatActivity {
                 return true;
             default:
                 return false;
-        }
-    }
+        } // End switch case
+    } // End function onOptionsItemSelected
 
-    // Step 6 for Lab 3
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
 
-        // Step 11 for Lab 3
         if (requestCode == 50 && responseCode == Activity.RESULT_OK) {
             Log.i(ACTIVITY_NAME, "Returned to StartActivity.onActivityResult");
             String messagePassed = data.getStringExtra("Response");
@@ -82,7 +81,6 @@ public class StartProjectActivity extends AppCompatActivity {
         }
     }
 
-    // Steps 2 and 3 for Lab 3
     @Override
     protected void onResume() {
         super.onResume();
@@ -113,3 +111,5 @@ public class StartProjectActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 }
+
+

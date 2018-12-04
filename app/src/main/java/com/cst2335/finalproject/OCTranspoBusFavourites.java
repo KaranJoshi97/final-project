@@ -21,12 +21,18 @@ import java.util.ArrayList;
 
 public class OCTranspoBusFavourites extends Fragment {
 
+    /*
+     * Variables for EditText, Button, ProgressBar, and FrameLayout
+     */
     private ListView listView;
     private ArrayList<String[]> list = new ArrayList<>();
     private OCTranspoDatabaseHelper dbh;
     private SQLiteDatabase db;
     private FavouriteAdapter favouriteAdapter;
 
+    /*
+     * Empty Constructor
+     */
     public OCTranspoBusFavourites() {
     }
 
@@ -85,7 +91,7 @@ public class OCTranspoBusFavourites extends Fragment {
             close.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    db.execSQL("DELETE FROM " + OCTranspoDatabaseHelper.TABLE_NAME + " WHERE " + OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " = " + formatNumber(getItem(position)[0]));
+                    db.execSQL("DELETE FROM " + OCTranspoDatabaseHelper.TABLE_NAME + " WHERE " + OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " = " + getItem(position)[0]);
                     ((OCTranspoBusRouteApp) getActivity()).setFavouritesDetails();
                 }
             });
@@ -96,11 +102,6 @@ public class OCTranspoBusFavourites extends Fragment {
                 }
             });
             return result;
-        }
-
-        public String formatNumber(String s){
-            String f = s.replaceFirst("^0+(?!$)", "");
-            return f;
         }
     }
 }

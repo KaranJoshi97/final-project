@@ -107,17 +107,29 @@ public class OCTranspoBusRouteDetails extends Fragment {
             View result = inflater.inflate(R.layout.bus_trip, null);
             TextView id = result.findViewById(R.id.bus_trip_id);
             id.setText("Trip "+(position+1));
+
             TextView dest = result.findViewById(R.id.bus_destination);
+            // get the string at position
             dest.setText("Destination: "+(getItem(position)[0] != "" ? getItem(position)[0] : "No information available."));
+
             TextView start = result.findViewById(R.id.bus_start);
+            // get the string at position
             start.setText("Trip Start Time: "+(getItem(position)[1] != "" ? getItem(position)[1] : "No information available."));
+
             TextView speed = result.findViewById(R.id.bus_speed);
+            // get the string at position
             speed.setText("GPS Speed: "+(getItem(position)[2] != "" ? getItem(position)[2] : "No information available."));
+
             TextView sched = result.findViewById(R.id.bus_schedule);
+            // get the string at position
             sched.setText("Adjusted Schedule Time: "+(getItem(position)[3] != "" ? getItem(position)[3] : "No information available."));
+
             TextView longi = result.findViewById(R.id.bus_longitude);
+            // get the string at position
             longi.setText("Longitude: "+(getItem(position)[4] != "" ? getItem(position)[4] : "No information available."));
+
             TextView lat = result.findViewById(R.id.bus_latitude);
+            // get the string at position
             lat.setText("Latitude: "+(getItem(position)[5] != "" ? getItem(position)[5] : "No information available."));
             /*result.setOnClickListener(new View.OnClickListener() {
                 @Override
