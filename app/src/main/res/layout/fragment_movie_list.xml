@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MovieListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment movie_landing -->
     <ListView
         android:id="@+id/movielistview"
         android:layout_width="match_parent"

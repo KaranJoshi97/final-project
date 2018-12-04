@@ -53,7 +53,7 @@
         android:id="@+id/movieback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back"
+        android:text="@string/home"
         android:layout_below="@id/movieplot"
         android:layout_toRightOf="@id/moviesave"/>
 

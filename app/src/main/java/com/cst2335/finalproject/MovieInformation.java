@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -38,7 +41,7 @@ public class MovieInformation extends Activity {
 
     private ListView listView;
     private ProgressBar progress;
-    private Button send;
+    private Button send, saved;
     private EditText search;
     private FrameLayout frame;
     private String ACTIVITY_NAME = "MovieInformation";
@@ -60,7 +63,14 @@ public class MovieInformation extends Activity {
                 new MovieQuery().execute(url);
             }
         });
-        setListFragment();
+        saved = findViewById(R.id.moviesaved);
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setListFragment();
+            }
+        });
+        setLanding();
     }
 
     protected String formatSearch(String s){
@@ -76,6 +86,7 @@ public class MovieInformation extends Activity {
     public void setDetailsFragment(String title, String year, String rating, String runtime, String actors, String plot, String poster){
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        frame.removeAllViews();
         ft.commit();
         fragment.setInfo(title, year, rating, runtime, actors, plot, poster);
         search.clearFocus();
@@ -90,9 +101,23 @@ public class MovieInformation extends Activity {
     public void setListFragment(){
         MovieListFragment fragment = new MovieListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        frame.removeAllViews();
         ft.commit();
     }
 
+    public void setLanding(){
+        Fragment fragment = new Fragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        ft.commit();
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout landing = (RelativeLayout) inflater.inflate(R.layout.movie_landing, null);
+        frame.addView(landing);
+    }
+
+    public void showToast(){
+        Toast toast = Toast.makeText(this, "Information not found.", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     public class MovieQuery extends AsyncTask<String, Integer, String> {
 
@@ -117,8 +142,8 @@ public class MovieInformation extends Activity {
                     Log.i(ACTIVITY_NAME, "url.openConnection threw IOException");
                     return null;
                 }
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setReadTimeout(1000 /* milliseconds */);
+                conn.setConnectTimeout(1500 /* milliseconds */);
                 try {
                     conn.setRequestMethod("GET");
                 } catch (ProtocolException e) {
@@ -154,7 +179,11 @@ public class MovieInformation extends Activity {
         protected void onPostExecute(String result){
             Log.i(ACTIVITY_NAME, "In onPostExecute");
             progress.setVisibility(View.INVISIBLE);
-            setDetailsFragment(title, year, rating, runtime, actors, plot, poster);
+            if (title != null) {
+                setDetailsFragment(title, year, rating, runtime, actors, plot, poster);
+            } else {
+                showToast();
+            }
         }
 
         public void parse(InputStream in) throws XmlPullParserException, IOException {

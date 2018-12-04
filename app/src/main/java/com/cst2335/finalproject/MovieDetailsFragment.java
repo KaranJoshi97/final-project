@@ -81,7 +81,7 @@ public class MovieDetailsFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                ((MovieInformation) getActivity()).setListFragment();
+                ((MovieInformation) getActivity()).setLanding();
             }
         });
         mdh = new MovieDatabaseHelper(getActivity());

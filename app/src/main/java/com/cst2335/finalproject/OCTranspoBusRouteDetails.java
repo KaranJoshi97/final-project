@@ -46,7 +46,7 @@ public class OCTranspoBusRouteDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_octranspo_bus_route_details);
+        /*setContentView(R.movie_landing.activity_octranspo_bus_route_details);
         Log.i(ACTIVITY_NAME, "In onCreate()");
 
         routeHeading = findViewById(R.id.routeHeading);

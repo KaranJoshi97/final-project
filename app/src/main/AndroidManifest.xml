@@ -16,16 +16,13 @@
         <activity android:name=".CBCNewsReader" />
         <activity android:name=".MovieInformation" />
         <activity android:name=".OCTranspoBusRouteApp" />
-        <activity android:name=".StartProjectActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".StartProjectActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-        <activity android:name=".OCTranspoBusRouteDetails" />
-        <activity android:name=".OCTranspoBusRouteApp"></activity>
     </application>
 
 </manifest>
