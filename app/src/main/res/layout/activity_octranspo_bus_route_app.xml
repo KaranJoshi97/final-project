@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/get_route_button"
-        android:text="Search Stop"
+        android:text="@string/stop_search"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/bus_stop_favourites"
         />
