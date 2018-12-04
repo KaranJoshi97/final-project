@@ -85,7 +85,8 @@ public class OCTranspoBusFavourites extends Fragment {
             close.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    db.execSQL("DELETE FROM " + OCTranspoDatabaseHelper.TABLE_NAME + " WHERE " + OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " = " + formatNumber(getItem(position)[0]));
+                    System.out.println("DELETE FROM " + OCTranspoDatabaseHelper.TABLE_NAME + " WHERE " + OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " = " + getItem(position)[0]);
+                    db.execSQL("DELETE FROM " + OCTranspoDatabaseHelper.TABLE_NAME + " WHERE " + OCTranspoDatabaseHelper.KEY_STATION_NUMBER + " = \'" + getItem(position)[0]+"\'");
                     ((OCTranspoBusRouteApp) getActivity()).setFavouritesDetails();
                 }
             });

@@ -12,7 +12,7 @@ public class OCTranspoDatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";
     public static final String KEY_STATION_NUMBER = "NUMBER";
     public static final String KEY_STATION_NAME = "NAME";
-    private static final int VERSION_NUM = 2;
+    private static final int VERSION_NUM = 3;
 
     public OCTranspoDatabaseHelper(Context ctx){
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
