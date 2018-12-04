@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Final Project</string>
+    <string name="app_name">FP</string>
 
 
     <string name="hello_message">Hello World!</string>
@@ -7,15 +7,16 @@
     <string name="Login_Title">Login</string>
     <string name="Login_Name">Login Name</string>
     <string name="Password_Title">Password</string>
-    <string name="RadioButton_Title">RadioButton</string>
-    <string name="CheckBox_Title">CheckBox</string>
-    <string name="Switch_Title">What does this do?</string>
+
     <string name="cbcButton">CBC News Reader</string>
     <string name="foodButton">Food Nutrition</string>
     <string name="movieButton">Movie Information</string>
     <string name="search">Search</string>
+    <string name="stop_search">Search Stop</string>
     <string name="save">Save</string>
+    <string name="saved">Saved</string>
     <string name="back">Back</string>
+    <string name="home">Home</string>
 
-
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

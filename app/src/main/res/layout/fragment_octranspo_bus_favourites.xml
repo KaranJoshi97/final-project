@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieListFragment">
+    tools:context=".OCTranspoBusFavourites">
 
-    <!-- TODO: Update blank fragment movie_landing -->
     <ListView
-        android:id="@+id/movielistview"
+        android:id="@+id/favourites_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

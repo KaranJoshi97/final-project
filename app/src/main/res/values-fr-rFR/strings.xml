@@ -1,0 +1,22 @@
+
+<resources>
+    <string name="app_name">PF</string>
+
+    <string name="hello_message">Bonjour!</string>
+    <string name="busButton">OCTranspo Ligne de Bus</string>
+    <string name="Login_Title">Login</string>
+    <string name="Login_Name">Nom D\'utilisateur</string>
+    <string name="Password_Title">Mots de Passe</string>
+
+    <string name="cbcButton">CBC Lecteur de Nouvelles</string>
+    <string name="foodButton">Nutrition Alimentaire</string>
+
+    <string name="movieButton">Informations Sur Le Film</string>
+    <string name="search">Recherche</string>
+    <string name="stop_search">Rechercher Arrêt</string>
+    <string name="save">Sauver</string>
+    <string name="saved">Sauvé</string>
+    <string name="back">Retour</string>
+    <string name="home">La maison</string>
+
+</resources>
