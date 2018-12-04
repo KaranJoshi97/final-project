@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OCTranspoBusRouteApp">
+    android:orientation="vertical"
+    tools:context="com.cst2335.finalproject.OCTranspoBusRouteApp">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bus_frame"
+        android:layout_above="@+id/progress_bar"
+        android:layout_below="@+id/toolbar">
+    </FrameLayout>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_above="@+id/input_line_number"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:id="@+id/input_line_number"
+        android:layout_toStartOf="@id/get_route_button"
+        android:layout_toLeftOf="@+id/get_route_button"
+        android:gravity="bottom"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:hint="Stop #"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_route_button"
+        android:text="@string/stop_search"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/bus_stop_favourites"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bus_stop_favourites"
+        android:text="@string/saved"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        />
+
+
+
+</RelativeLayout>

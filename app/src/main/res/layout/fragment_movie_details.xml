@@ -6,55 +6,57 @@
     tools:context=".MovieDetailsFragment"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true" >
-    
-    <ImageView
-        android:id="@+id/movieposter"
-        android:layout_width="150dp"
-        android:layout_height="225dp"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/movietitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movieposter"/>
-    <TextView
-        android:id="@+id/movieyear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movietitle"/>
-    <TextView
-        android:id="@+id/movierating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movieyear"/>
-    <TextView
-        android:id="@+id/movieruntime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movierating"/>
-    <TextView
-        android:id="@+id/movieactors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movieruntime"/>
-    <TextView
-        android:id="@+id/movieplot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movieactors"/>
-    <Button
-        android:id="@+id/moviesave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_below="@id/movieplot"/>
-    <Button
-        android:id="@+id/movieback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:layout_below="@id/movieplot"
-        android:layout_toRightOf="@id/moviesave"/>
+
+
+        <ImageView
+            android:id="@+id/movieposter"
+            android:layout_width="150dp"
+            android:layout_height="225dp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/movietitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieposter"/>
+        <TextView
+            android:id="@+id/movieyear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movietitle"/>
+        <TextView
+            android:id="@+id/movierating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieyear"/>
+        <TextView
+            android:id="@+id/movieruntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movierating"/>
+        <TextView
+            android:id="@+id/movieactors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieruntime"/>
+        <TextView
+            android:id="@+id/movieplot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieactors"/>
+        <Button
+            android:id="@+id/moviesave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_below="@id/movieplot"/>
+        <Button
+            android:id="@+id/movieback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home"
+            android:layout_below="@id/movieplot"
+            android:layout_toRightOf="@id/moviesave"/>
+
 
 
 </RelativeLayout>

@@ -32,5 +32,6 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
         Log.i("MovieDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVer + " newVersion=" + newVer);
     }
+
 }
 

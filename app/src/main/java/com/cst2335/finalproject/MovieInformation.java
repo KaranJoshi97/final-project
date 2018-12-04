@@ -3,14 +3,21 @@ package com.cst2335.finalproject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,6 +25,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -34,11 +44,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieInformation extends Activity {
+public class MovieInformation extends AppCompatActivity {
 
-    private ListView listView;
     private ProgressBar progress;
-    private Button send;
+    private Button send, saved;
     private EditText search;
     private FrameLayout frame;
     private String ACTIVITY_NAME = "MovieInformation";
@@ -49,6 +58,9 @@ public class MovieInformation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_information);
         Log.i(ACTIVITY_NAME, "in onCreate()");
+        Toolbar toolbar =
+                (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         progress = findViewById(R.id.movieprogress);
         send = findViewById(R.id.moviesearch);
         search = findViewById(R.id.movieedit);
@@ -60,9 +72,56 @@ public class MovieInformation extends Activity {
                 new MovieQuery().execute(url);
             }
         });
-        setListFragment();
+        saved = findViewById(R.id.moviesaved);
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setListFragment();
+            }
+        });
+        setLanding();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent nextScreen;
+        switch (item.getItemId()){
+            case (R.id.OCTranspo_menuitem):
+                nextScreen = new Intent(MovieInformation.this, OCTranspoBusRouteApp.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Movie_menuitem):
+                nextScreen = new Intent(MovieInformation.this, MovieInformation.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.Food_menuitem):
+                nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.CBC_menuitem):
+                nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
+                startActivityForResult(nextScreen, 50);
+                return true;
+            case (R.id.menuItem):
+                //How to use the application
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Removes spaces from search parameter and replaces them with "+" for compatibility with omd URL.
+     * @param s Search parameter to be formatted.
+     * @return Formatted parameter.
+     */
     protected String formatSearch(String s){
         String f = "";
         String[] arr = s.toLowerCase().split(" ");
@@ -73,9 +132,20 @@ public class MovieInformation extends Activity {
         return f;
     }
 
+    /**
+     *
+     * @param title
+     * @param year
+     * @param rating
+     * @param runtime
+     * @param actors
+     * @param plot
+     * @param poster
+     */
     public void setDetailsFragment(String title, String year, String rating, String runtime, String actors, String plot, String poster){
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        frame.removeAllViews();
         ft.commit();
         fragment.setInfo(title, year, rating, runtime, actors, plot, poster);
         search.clearFocus();
@@ -87,12 +157,36 @@ public class MovieInformation extends Activity {
         }
         //
     }
+
+    /**
+     *
+     */
     public void setListFragment(){
         MovieListFragment fragment = new MovieListFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        frame.removeAllViews();
         ft.commit();
     }
 
+    /**
+     *
+     */
+    public void setLanding(){
+        Fragment fragment = new Fragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
+        ft.commit();
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout landing = (RelativeLayout) inflater.inflate(R.layout.movie_landing, null);
+        frame.addView(landing);
+    }
+
+    /**
+     *
+     */
+    public void showToast(){
+        Toast toast = Toast.makeText(this, "Information not found.", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     public class MovieQuery extends AsyncTask<String, Integer, String> {
 
@@ -100,8 +194,10 @@ public class MovieInformation extends Activity {
         private String title, year, rating, runtime, actors, plot, poster;
 
         protected String doInBackground (String... args) {
+
                 String info = "";
                 URL url;
+                publishProgress(25);
                 try {
                     url = new URL(args[0]);
                 } catch (MalformedURLException e) {
@@ -115,8 +211,8 @@ public class MovieInformation extends Activity {
                     Log.i(ACTIVITY_NAME, "url.openConnection threw IOException");
                     return null;
                 }
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setReadTimeout(1000 /* milliseconds */);
+                conn.setConnectTimeout(1500 /* milliseconds */);
                 try {
                     conn.setRequestMethod("GET");
                 } catch (ProtocolException e) {
@@ -152,7 +248,11 @@ public class MovieInformation extends Activity {
         protected void onPostExecute(String result){
             Log.i(ACTIVITY_NAME, "In onPostExecute");
             progress.setVisibility(View.INVISIBLE);
-            setDetailsFragment(title, year, rating, runtime, actors, plot, poster);
+            if (title != null) {
+                setDetailsFragment(title, year, rating, runtime, actors, plot, poster);
+            } else {
+                showToast();
+            }
         }
 
         public void parse(InputStream in) throws XmlPullParserException, IOException {
@@ -171,6 +271,7 @@ public class MovieInformation extends Activity {
             Log.i(ACTIVITY_NAME, "in ReadFeed()");
 
             parser.require(XmlPullParser.START_TAG, ns, "root");
+            publishProgress(50);
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
                 Log.i(ACTIVITY_NAME, "reading feed");
                 if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -180,6 +281,7 @@ public class MovieInformation extends Activity {
                 // Starts by looking for the entry tag
 
                 if (name.equals("movie")) {
+                    publishProgress(75);
                     Log.i(ACTIVITY_NAME, "found movie");
                     title = parser.getAttributeValue(null, "title");
                     year = parser.getAttributeValue(null, "year");
@@ -193,6 +295,7 @@ public class MovieInformation extends Activity {
                     skip(parser);
                 }
             }
+            publishProgress(100);
         }
 
         private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {

@@ -10,18 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+      
+        <activity android:name=".MainActivity" />
         <activity android:name=".FoodNutritionDatabase" />
         <activity android:name=".CBCNewsReader" />
-        <activity android:name=".MovieInformation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MovieInformation" />
+        <activity android:name=".OCTranspoBusRouteApp" />
+        <activity android:name=".StartProjectActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-        <activity android:name=".OCTranspoBusRouteApp"></activity>
     </application>
 
 </manifest>

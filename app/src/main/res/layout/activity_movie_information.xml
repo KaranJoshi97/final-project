@@ -8,14 +8,27 @@
     android:focusableInTouchMode="true"
     tools:context=".MovieInformation">
     <requestFocus/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/moviesearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
+        android:layout_toLeftOf="@id/moviesaved"
+        android:layout_below="@id/toolbar"
+        />
+    <Button
+        android:id="@+id/moviesaved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/saved"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/toolbar"
         />
 
     <EditText
@@ -26,21 +39,26 @@
         android:layout_alignParentLeft="true"
         android:layout_gravity="top"
         android:layout_toLeftOf="@id/moviesearch"
+        android:layout_below="@id/toolbar"
         android:maxLines="1"
         android:inputType="text"/>
-
-    <FrameLayout
-        android:id="@+id/movieframe"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/moviesearch"
+        android:layout_below="@id/movieprogress"
         android:nextFocusUp="@id/movieframe"
-        android:nextFocusLeft="@id/movieframe"/>
+        android:nextFocusLeft="@id/movieframe">
+        <FrameLayout
+            android:id="@+id/movieframe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/movieprogress"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/movieedit"
         android:visibility="invisible"
         style="?android:attr/progressBarStyleHorizontal"/>
 

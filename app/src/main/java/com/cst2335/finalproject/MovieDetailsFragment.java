@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ import java.net.URL;
 
 
 public class MovieDetailsFragment extends Fragment {
+
+    // Variables
     private final String ACTIVITY_NAME = "MovieDetailsFragment";
     private Button save, back;
     private TextView title, year, rating, runtime, actors, plot;
@@ -39,7 +42,7 @@ public class MovieDetailsFragment extends Fragment {
     private MovieDatabaseHelper mdh;
     private SQLiteDatabase db;
 
-
+    // Empty Constructor
     public MovieDetailsFragment() {
     }
 
@@ -62,6 +65,7 @@ public class MovieDetailsFragment extends Fragment {
         poster = (ImageView) rootView.findViewById(R.id.movieposter);
         save = (Button) rootView.findViewById(R.id.moviesave);
         save.setOnClickListener(new View.OnClickListener() {
+
              @Override
              public void onClick(View v) {
                  ContentValues cValues = new ContentValues();
@@ -73,13 +77,16 @@ public class MovieDetailsFragment extends Fragment {
                  cValues.put(MovieDatabaseHelper.KEY_PLOT, p);
                  cValues.put(MovieDatabaseHelper.KEY_POSTER, po);
                  db.insert(MovieDatabaseHelper.TABLE_NAME, "NullColumnName", cValues);
+                 Snackbar snackbar = Snackbar.make(save, "Added to favourites", Snackbar.LENGTH_SHORT);
+                 snackbar.show();
              }
+
         });
         back = (Button) rootView.findViewById(R.id.movieback);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                ((MovieInformation) getActivity()).setListFragment();
+                ((MovieInformation) getActivity()).setLanding();
             }
         });
         mdh = new MovieDatabaseHelper(getActivity());
@@ -88,8 +95,8 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        this.title.setText(t);
-        this.year.setText(y);
+        this.title.setText(t+"("+y+")");
+        //this.year.setText(y);
         this.rating.setText(ra);
         this.runtime.setText(ru);
         this.actors.setText(a);
@@ -97,24 +104,24 @@ public class MovieDetailsFragment extends Fragment {
         new RetrievePosterTask().execute(po);
     }
 
+    /**
+     *
+     * @param title
+     * @param year
+     * @param rating
+     * @param runtime
+     * @param actors
+     * @param plot
+     * @param poster
+     */
     public void setInfo(String title, String year, String rating, String runtime, String actors, String plot, String poster) {
-        if (this.title != null && this.year != null && this.rating != null && this.runtime != null && this.actors != null && this.plot != null && this.poster != null) {
-            this.title.setText(title);
-            this.year.setText(year);
-            this.rating.setText(rating);
-            this.runtime.setText(runtime);
-            this.actors.setText(actors);
-            this.plot.setText(plot);
-            new RetrievePosterTask().execute(poster);
-        } else {
-            t = title;
-            y = year;
-            ra = rating;
-            ru = runtime;
-            a = actors;
-            p = plot;
-            po = poster;
-        }
+        t = title;
+        y = year;
+        ra = ("Rated: "+rating);
+        ru = ("Runtime: "+runtime);
+        a = actors;
+        p = plot;
+        po = poster;
     }
 
     class RetrievePosterTask extends AsyncTask<String, Integer, Bitmap> {

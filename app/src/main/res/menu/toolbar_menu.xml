@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/OCTranspo_menuitem"
+        android:icon="@drawable/bus_icon"
+        android:title="OC Transpo App"
+        android:orderInCategory="101"
+        app:showAsAction="always|collapseActionView"/>
+    <item android:id="@+id/Movie_menuitem"
+        android:orderInCategory="102"
+        android:icon="@drawable/movie_icon"
+        android:title="Movie Information"
+        app:showAsAction="always|collapseActionView"/>
+    <item android:id="@+id/CBC_menuitem"
+        android:icon="@drawable/tv_icon"
+        android:orderInCategory="103"
+        android:title="CBC News Reader"
+        app:showAsAction="always"/>
+    <item android:id="@+id/Food_menuitem"
+        android:icon="@drawable/food_icon"
+        android:orderInCategory="104"
+        android:title="Food Nutrition Database"
+        app:showAsAction="always|collapseActionView"/>
+    <item android:id="@+id/menuItem"
+        android:title="About"
+        app:showAsAction="never" />
+</menu>
