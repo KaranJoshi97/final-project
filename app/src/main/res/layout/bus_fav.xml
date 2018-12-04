@@ -4,19 +4,16 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/bus_stop_number"
+        android:id="@+id/fav_stop_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/bus_stop_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bus_stop_number"/>
-    <TextView
-        android:id="@+id/bus_stop_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bus_stop_direction"/>
 
+    <ImageView
+        android:id="@+id/bus_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/movieclose"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OCTrip" />
         <activity android:name=".OCTranspoBusRouteDetails" />
         <activity android:name=".OCTranspoBusRouteApp"></activity>
     </application>

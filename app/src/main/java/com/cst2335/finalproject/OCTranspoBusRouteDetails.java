@@ -1,6 +1,7 @@
 package com.cst2335.finalproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -10,6 +11,9 @@ import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +29,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 import static org.xmlpull.v1.XmlPullParser.START_TAG;
@@ -32,9 +37,11 @@ import static org.xmlpull.v1.XmlPullParser.START_TAG;
 public class OCTranspoBusRouteDetails extends Fragment {
 
     protected final static String ACTIVITY_NAME = "OCTranspoRouteDetails";
-    private TextView routeHeading, routeNumber, routeDirection, routeDirectionID;
-    private String rH, rN, rD, rDID;
-    private ProgressBar progressBar;
+    private ListView listView;
+    private ArrayList<String[]> list = new ArrayList<>();
+    private BusRouteAdapter busRouteAdapter;
+    private Button back;
+    private String stop;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,25 +61,65 @@ public class OCTranspoBusRouteDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_octranspo_bus_route_details, container, false);
-        routeHeading = (TextView) rootView.findViewById(R.id.routeHeading);
-        routeNumber = (TextView) rootView.findViewById(R.id.routeNumber);
-        routeDirection = (TextView) rootView.findViewById(R.id.routeDirection);
-        routeDirectionID = (TextView) rootView.findViewById(R.id.routeDirectionID);
+        listView = (ListView) rootView.findViewById(R.id.bus_route_list);
+        back = (Button) rootView.findViewById(R.id.bus_button_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((OCTranspoBusRouteApp) getActivity()).queryStop(stop);
+            }
+        });
+        busRouteAdapter = new BusRouteAdapter(getActivity());
+        listView.setAdapter(busRouteAdapter);
         return rootView;
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        routeHeading.setText(rH);
-        routeNumber.setText(rN);
-        routeDirection.setText(rD);
-        routeDirectionID.setText(rDID);
+        busRouteAdapter.notifyDataSetChanged();
     }
 
-    public void setStrings(String a, String b, String c, String d){
-        rH = a;
-        rN = b;
-        rD = c;
-        rDID = d;
+    public void addToList(String[] s){
+        list.add(s);
+    }
+
+    public void setStop(String s){
+        stop = s;
+    }
+
+    private class BusRouteAdapter extends ArrayAdapter<String[]> {
+
+        private BusRouteAdapter(Context ctx){super(ctx, 0); }
+
+        public int getCount(){return list.size();}
+
+        public String[] getItem(int position){return list.get(position);}
+
+        public View getView(final int position, View convertView, ViewGroup parent){
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View result = inflater.inflate(R.layout.bus_trip, null);
+            TextView id = result.findViewById(R.id.bus_trip_id);
+            id.setText("Trip "+(position+1));
+            TextView dest = result.findViewById(R.id.bus_destination);
+            dest.setText("Destination: "+(getItem(position)[0] != "" ? getItem(position)[0] : "No information available."));
+            TextView start = result.findViewById(R.id.bus_start);
+            start.setText("Trip Start Time: "+(getItem(position)[1] != "" ? getItem(position)[1] : "No information available."));
+            TextView speed = result.findViewById(R.id.bus_speed);
+            speed.setText("GPS Speed: "+(getItem(position)[2] != "" ? getItem(position)[2] : "No information available."));
+            TextView sched = result.findViewById(R.id.bus_schedule);
+            sched.setText("Adjusted Schedule Time: "+(getItem(position)[3] != "" ? getItem(position)[3] : "No information available."));
+            TextView longi = result.findViewById(R.id.bus_longitude);
+            longi.setText("Longitude: "+(getItem(position)[4] != "" ? getItem(position)[4] : "No information available."));
+            TextView lat = result.findViewById(R.id.bus_latitude);
+            lat.setText("Latitude: "+(getItem(position)[5] != "" ? getItem(position)[5] : "No information available."));
+            /*result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("oof", "in onclick"+getItem(position)[0]+getItem(position)[1]);
+                    ((OCTranspoBusRouteApp) getActivity()).queryRoute(getItem(position)[0], getItem(position)[1]);
+                }
+            });*/
+            return result;
+        }
     }
 
 
