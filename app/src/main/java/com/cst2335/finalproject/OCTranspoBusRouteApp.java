@@ -2,14 +2,19 @@ package com.cst2335.finalproject;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -36,6 +41,7 @@ public class OCTranspoBusRouteApp extends Activity {
     private EditText input;
     private Button search, favourites;
     private ProgressBar progressBar;
+    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +51,10 @@ public class OCTranspoBusRouteApp extends Activity {
 
         input = findViewById(R.id.input_line_number);
         search = findViewById(R.id.get_route_button);
-        search.setOnClickListener(new View.OnClickListener(){
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                queryStop(""+input.getText());
+                queryStop("" + input.getText());
             }
         });
         favourites = findViewById(R.id.bus_stop_favourites);
@@ -59,6 +65,10 @@ public class OCTranspoBusRouteApp extends Activity {
             }
         });
         progressBar = findViewById(R.id.progress_bar);
+        frameLayout = findViewById(R.id.bus_frame);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout landing = (RelativeLayout) inflater.inflate(R.layout.bus_landing, null);
+        frameLayout.addView(landing);
     }
 
     public void queryRoute(String stop, String route){
@@ -74,6 +84,7 @@ public class OCTranspoBusRouteApp extends Activity {
     public void setStopDetails(String stop, String name, ArrayList<String> route_number, ArrayList<String> route_heading, ArrayList<String> route_direction, ArrayList<String> route_direction_id){
         OCTranspoBusStopList octList = new OCTranspoBusStopList();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octList).addToBackStack(null);
+        frameLayout.removeAllViews();
         ft.commit();
         octList.setStop(stop);
         octList.setName(name);
@@ -86,6 +97,7 @@ public class OCTranspoBusRouteApp extends Activity {
     public void setTripDetails(String stop, ArrayList<String> trip_destination, ArrayList<String> trip_start_time, ArrayList<String> trip_gps_speed, ArrayList<String> trip_schedule_time, ArrayList<String> trip_longitude, ArrayList<String> trip_lattitude){
         OCTranspoBusRouteDetails octDetails = new OCTranspoBusRouteDetails();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octDetails).addToBackStack(null);
+        frameLayout.removeAllViews();
         ft.commit();
         octDetails.setStop(stop);
         for (int i = 0; i < trip_destination.size(); i++){
@@ -97,6 +109,7 @@ public class OCTranspoBusRouteApp extends Activity {
     public void setFavouritesDetails(){
         OCTranspoBusFavourites octFavs = new OCTranspoBusFavourites();
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octFavs).addToBackStack(null);
+        frameLayout.removeAllViews();
         ft.commit();
     }
 
