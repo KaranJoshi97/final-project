@@ -1,13 +1,18 @@
 package com.cst2335.finalproject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 public class FoodNutritionDatabase extends AppCompatActivity {
 
@@ -58,6 +63,19 @@ public class FoodNutritionDatabase extends AppCompatActivity {
                 return true;
             case (R.id.menuItem):
                 //How to use the application
+                AlertDialog.Builder builder = new AlertDialog.Builder(FoodNutritionDatabase.this);
+                LayoutInflater inflater = FoodNutritionDatabase.this.getLayoutInflater();
+                final View newView = inflater.inflate(R.layout.new_dialogue, null);
+                builder.setView(newView);
+                TextView helpMessage = (TextView)newView.findViewById(R.id.dialogText);
+                helpMessage.setText(" Jack Loveday\n Food Nutrition Database");
+                builder.setNegativeButton(R.string.negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                builder.create().show();
                 return true;
             default:
                 return false;
