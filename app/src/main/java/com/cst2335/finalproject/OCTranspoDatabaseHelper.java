@@ -7,6 +7,7 @@ import android.util.Log;
 
 public class OCTranspoDatabaseHelper extends SQLiteOpenHelper {
 
+
     /**
      * Variables for data type int and string
      */
@@ -15,7 +16,8 @@ public class OCTranspoDatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";                   // Primary key
     public static final String KEY_STATION_NUMBER = "NUMBER";    // Number
     public static final String KEY_STATION_NAME = "NAME";        // Name
-    private static final int VERSION_NUM = 1;                    // Database version
+    private static final int VERSION_NUM = 3;                    // Database version
+
 
     /*
      * Context ctx – the Activity where the database is being opened
