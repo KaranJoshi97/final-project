@@ -38,8 +38,10 @@ import java.util.ArrayList;
 
 public class OCTranspoBusRouteApp extends AppCompatActivity {
 
+    /**
+     * The Variables for the ProgressBar, Button, EditText, FrameLayout, and String
+     */
     protected static final String ACTIVITY_NAME = "OCTranspoBusRouteApp";
-
     private EditText input;
     private Button search, favourites;
     private ProgressBar progressBar;
@@ -50,9 +52,16 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_octranspo_bus_route_app);
         Log.i(ACTIVITY_NAME, "In onCreate");
-        Toolbar toolbar =
-                (Toolbar)findViewById(R.id.toolbar);
+
+        /**
+         * Toolbar variable and setting the support action
+         */
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /**
+         * Connecting the backend code with the User Interface elements
+         */
         input = findViewById(R.id.input_line_number);
         search = findViewById(R.id.get_route_button);
         search.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +85,9 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * Inflating the Menu resource
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
@@ -83,23 +95,30 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * Handling each item id in onOptionsItemSelected()
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         Intent nextScreen;
         switch (item.getItemId()){
+            // Selecting the OC Transpo option
             case (R.id.OCTranspo_menuitem):
                 nextScreen = new Intent(OCTranspoBusRouteApp.this, OCTranspoBusRouteApp.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Movie option
             case (R.id.Movie_menuitem):
                 nextScreen = new Intent(OCTranspoBusRouteApp.this, MovieInformation.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Food option
             case (R.id.Food_menuitem):
                 nextScreen = new Intent(OCTranspoBusRouteApp.this, FoodNutritionDatabase.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the CBC option
             case (R.id.CBC_menuitem):
-                nextScreen = new Intent(OCTranspoBusRouteApp.this, FoodNutritionDatabase.class);
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, CBCNewsReader.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.menuItem):
@@ -107,13 +126,14 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
                 return true;
             default:
                 return false;
-        }
-    }
+        } // End switch case
+    } // End function onOptionsItemSelected
 
     /**
      *
      * @param stop
      * @param route
+     *
      */
     public void queryRoute(String stop, String route){
         String URL = ("https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="+stop+"&routeNo="+route);
@@ -192,52 +212,55 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
     }
 
 
+    /* Inner class for OCTranspoBusRouteApp */
     public class OCTranpoQuery extends AsyncTask<String, Integer, String> {
 
+        // The Variables in the inner class
         private String stop_number;
         private String stop_name;
         private final String ns = null;
         //Stop Info
+
         /**
-         *
+         * The route heading in an arraylist
          */
         private ArrayList<String> route_heading = new ArrayList<>();
         /**
-         *
+         * The route number in an arraylist
          */
         private ArrayList<String> route_number = new ArrayList<>();
         /**
-         *
+         * The route direction in an arraylist
          */
         private ArrayList<String> route_direction = new ArrayList<>();
         /**
-         *
+         * The route direction id in an arraylist
          */
         private ArrayList<String> route_direction_id = new ArrayList<>();
 
         //Route Info
         /**
-         *
+         * The trip destination in an arraylist
          */
         private ArrayList<String> trip_destination = new ArrayList<>();
         /**
-         *
+         * The trip start time in an arraylist
          */
         private ArrayList<String> trip_start_time = new ArrayList<>();
         /**
-         *
+         * The trip gps speed in an arraylist
          */
         private ArrayList<String> trip_gps_speed = new ArrayList<>();
         /**
-         *
+         * The trip schedule time in an arraylist
          */
         private ArrayList<String> trip_schedule_time = new ArrayList<>();
         /**
-         *
+         * The trip longitude in an arraylist
          */
         private ArrayList<String> trip_longitude = new ArrayList<>();
         /**
-         *
+         * The trip latitude in an arraylist
          */
         private ArrayList<String> trip_lattitude = new ArrayList<>();
 
@@ -312,7 +335,7 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
             }
             Log.i(ACTIVITY_NAME, "The background has been finished");
             return "Done";
-        }
+        } // End doInBackground
 
         public void parse(InputStream in) throws XmlPullParserException, IOException {
             System.out.println("In parse");
@@ -369,18 +392,23 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
                     }
                     if (parser.getName().equals("TripStartTime")){
                         trip_start_time.add(""+parser.nextText());
+                        Log.i(ACTIVITY_NAME, "Trip start time is working");
                     }
                     if (parser.getName().equals("GPSSpeed")){
                         trip_gps_speed.add(""+parser.nextText());
+                        Log.i(ACTIVITY_NAME, "Trip GPS speed is working");
                     }
                     if (parser.getName().equals("AdjustedScheduleTime")){
                         trip_schedule_time.add(""+parser.nextText());
+                        Log.i(ACTIVITY_NAME, "Adjusted schedule is working");
                     }
                     if (parser.getName().equals("Latitude")){
                         trip_lattitude.add(""+parser.nextText());
+                        Log.i(ACTIVITY_NAME, "Latitude is working");
                     }
                     if (parser.getName().equals("Longitude")){
                         trip_longitude.add(""+parser.nextText());
+                        Log.i(ACTIVITY_NAME, "Longitude is working");
                     }
 
                 }
@@ -395,6 +423,9 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
         }
 
         @Override
+        /**
+         * onProgressUpdate is there for to update an progress indicators, or information on your GUI
+         */
         protected void onProgressUpdate(Integer... value) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(value[0]);
@@ -415,4 +446,4 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
         }
     }
 
-}
+} // End class OCTranspoBusRouteApp

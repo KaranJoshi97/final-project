@@ -1,13 +1,10 @@
 package com.cst2335.finalproject;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.util.Xml;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +14,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-import static org.xmlpull.v1.XmlPullParser.START_TAG;
 
 public class OCTranspoBusRouteDetails extends Fragment {
 
@@ -79,7 +62,7 @@ public class OCTranspoBusRouteDetails extends Fragment {
     }
 
     /**
-     *
+     * Adding to the list
      * @param s
      */
     public void addToList(String[] s){
@@ -87,13 +70,14 @@ public class OCTranspoBusRouteDetails extends Fragment {
     }
 
     /**
-     *
+     * Setting the stop
      * @param s
      */
     public void setStop(String s){
         stop = s;
     }
 
+    /* Inner class for OCTranspoBusRouteDetails */
     private class BusRouteAdapter extends ArrayAdapter<String[]> {
 
         private BusRouteAdapter(Context ctx){super(ctx, 0); }
@@ -142,6 +126,4 @@ public class OCTranspoBusRouteDetails extends Fragment {
         }
     }
 
-
-
-}
+}   // End class OCTranspoBusRouteDetails

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class OCTranspoBusFavourites extends Fragment {
 
-    /*
+    /**
      * Variables for EditText, Button, ProgressBar, and FrameLayout
      */
     private ListView listView;
@@ -38,8 +38,8 @@ public class OCTranspoBusFavourites extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_octranspo_bus_favourites, container, false);
         dbh = new OCTranspoDatabaseHelper(getActivity());
         db = dbh.getWritableDatabase();
@@ -51,7 +51,7 @@ public class OCTranspoBusFavourites extends Fragment {
     }
 
     /**
-     *
+     * Setting the database to the list
      * @param db
      * @param mdh
      */
@@ -68,6 +68,7 @@ public class OCTranspoBusFavourites extends Fragment {
         favouriteAdapter.notifyDataSetChanged();
     }
 
+    /* Inner class for OCTranspoBusFavourites */
     private class FavouriteAdapter extends ArrayAdapter<String[]> {
 
         private FavouriteAdapter(Context ctx) {
@@ -83,9 +84,11 @@ public class OCTranspoBusFavourites extends Fragment {
         }
 
         public View getView(final int position, View convertView, ViewGroup parent) {
+            // This will recreate your View that you made in the resource file.
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View result = inflater.inflate(R.layout.bus_fav, null);
             TextView stop = result.findViewById(R.id.fav_stop_number);
+            // get the string at position
             stop.setText("Station: "+getItem(position)[0]+ " "+getItem(position)[1]);
             ImageView close = result.findViewById(R.id.bus_close_button);
             close.setOnClickListener(new View.OnClickListener(){
@@ -104,4 +107,4 @@ public class OCTranspoBusFavourites extends Fragment {
             return result;
         }
     }
-}
+} // End class OCTranspoBusFavourites

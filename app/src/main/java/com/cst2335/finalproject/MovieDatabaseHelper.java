@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MovieDatabaseHelper extends SQLiteOpenHelper {
 
-    /*
+    /**
      * Variables for data type int and string
      */
     private static final String DATABASE_NAME = "movies.db";    // Database name
@@ -22,14 +22,20 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_POSTER = "POSTER";           // Poster
     private static final int VERSION_NUM = 1;                   // Database version
 
-
+    /**
+     * Context ctx – the Activity where the database is being opened
+     * String DATABASE_NAME - The file that wil contain the data
+     * CursorFactory – An object to create Cursor objects, normally this is null
+     * int VERSION_NUM -  What is the version of your database
+     */
     public MovieDatabaseHelper(Context ctx){
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
 
     @Override
-    /*
+    /**
      * This function is used to creating the table
+     * db.execSQL is a function that executes a string SQL statement.
      */
     public void onCreate(SQLiteDatabase db){
         // This function is creating the table
@@ -38,9 +44,9 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-
-    /*
+    /**
      * This function is used to upgrading the table
+     * db.execSQL is a function that deletes the data
      */
     public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -48,4 +54,4 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         Log.i("MovieDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVer + " newVersion=" + newVer);
     }
 
-}
+} // End Class MovieDatabaseHelper

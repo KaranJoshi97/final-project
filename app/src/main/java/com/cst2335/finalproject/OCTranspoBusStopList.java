@@ -42,7 +42,10 @@ public class OCTranspoBusStopList extends Fragment {
     private SQLiteDatabase db;
 
 
-    public OCTranspoBusStopList() {}
+    // Empty Constructor
+    public OCTranspoBusStopList() {
+
+    }
 
 
     @Override
@@ -54,6 +57,7 @@ public class OCTranspoBusStopList extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Content Values
                 ContentValues cValues = new ContentValues();
                 cValues.put(OCTranspoDatabaseHelper.KEY_STATION_NUMBER, stop);
                 cValues.put(OCTranspoDatabaseHelper.KEY_STATION_NAME, name);
@@ -74,7 +78,7 @@ public class OCTranspoBusStopList extends Fragment {
     }
 
     /**
-     *
+     * Adding to the list
      * @param s
      */
     public void addToList(String[] s){
@@ -82,7 +86,7 @@ public class OCTranspoBusStopList extends Fragment {
     }
 
     /**
-     *
+     * Setting the bus stop
      * @param s
      */
     public void setStop(String s){stop = s;}
@@ -93,6 +97,7 @@ public class OCTranspoBusStopList extends Fragment {
      */
     public void setName(String s){name = s;}
 
+    /* Inner class for OCTranspoBusStopList */
     private class BusStopAdapter extends ArrayAdapter<String[]>{
 
         private BusStopAdapter(Context ctx){super(ctx, 0); }
@@ -126,4 +131,4 @@ public class OCTranspoBusStopList extends Fragment {
         }
     }
 
-}
+} // End class OCTranspoBusStopList
