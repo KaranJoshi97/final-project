@@ -131,7 +131,12 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
                 final View newView = inflater.inflate(R.layout.new_dialogue, null);
                 builder.setView(newView);
                 TextView helpMessage = (TextView)newView.findViewById(R.id.dialogText);
-                helpMessage.setText("Test");
+                helpMessage.setText("Author: Karan Joshi\nVersion Number: 1\nTo use this interface, you must enter a stop number and then search it." +
+                        " After that, you can click on any line number and it will show you all relevant information" +
+                        " such as its destination, trip start, gps speed, adjusted schedule time, longitude, and" +
+                        " latitude. The user can go back to the beginning, or the user can save the stop number by clicking on the star icon where" +
+                        " the stop number is saved. Click on the 'saved' button and the search stops are present. You can either click" +
+                        "on the stop number for all of its info, or simply delete the stop number");
                 /*builder.setPositiveButton(R.string.positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
