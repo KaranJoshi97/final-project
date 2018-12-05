@@ -106,7 +106,7 @@ public class MovieInformation extends AppCompatActivity {
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.CBC_menuitem):
-                nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
+                nextScreen = new Intent(MovieInformation.this, CBCNewsReader.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.menuItem):

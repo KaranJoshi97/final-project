@@ -99,7 +99,7 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.CBC_menuitem):
-                nextScreen = new Intent(OCTranspoBusRouteApp.this, FoodNutritionDatabase.class);
+                nextScreen = new Intent(OCTranspoBusRouteApp.this, CBCNewsReader.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
             case (R.id.menuItem):

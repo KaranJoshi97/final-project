@@ -75,30 +75,30 @@ public class NewsParser {
                     case XmlPullParser.START_TAG:
                         tagname = parser.getName();
                         Log.d(TAG, "Event: START_TAG: " + tagname);
-                        if (tagname.equals("item")){
+                        if (tagname != null && tagname.equals("item")){
                             item = new Item();
                             item.pubDate = parser.getText();
                        }
-                        if (tagname.equals("title")){
+                        if (tagname != null && tagname.equals("title")){
                             item = new Item();
                             item.title= parser.getAttributeValue(null, "value");
                         }
 
 
-                        if (tagname.equals("link")){
+                        if (tagname != null && tagname.equals("link")){
                             item = new Item();
                             item.link= parser.getAttributeValue(null, "link");
                         }
-                        if (tagname.equals("guid")){
+                        if (tagname != null && tagname.equals("guid")){
                             item = new Item();
                             item.guid= parser.getAttributeValue(null, "guid");
                         }
-                        if (tagname.equals("author")){
+                        if (tagname != null && tagname.equals("author")){
                             item = new Item();
                            // item.author= parser.getAttributeValue(null, "author");
                              item.author= parser.getText();
                         }
-                        if (tagname.equals("description")){
+                        if (tagname != null && tagname.equals("description")){
                             item = new Item();
                             item.description= parser.getAttributeValue(null, "description");
                         }
@@ -110,10 +110,10 @@ public class NewsParser {
                         //text = parser.getName();
                         Log.d(TAG, "Event: TEXT: " + text);
 
-                        if (tagname.equals("title")){
+                        if (tagname != null && tagname.equals("title")){
                            news.title = text;
                         }
-                        if (tagname.equals("link")){
+                        if (tagname != null && tagname.equals("link")){
                            news.link = text;
                         }
                         break;
@@ -121,7 +121,7 @@ public class NewsParser {
                     case XmlPullParser.END_TAG:
                         tagname = parser.getName();
                         Log.d(TAG, "Event: END_TAG: " + tagname);
-                        if (tagname.equals("item")){
+                        if (tagname != null && tagname.equals("item")){
                             news.itemList.add(item);
                         }
                         break;
