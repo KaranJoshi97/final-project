@@ -14,6 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="CST 2335\nFinal Project\nPlease select a menu item to begin!"/>
 
 
 </RelativeLayout>
