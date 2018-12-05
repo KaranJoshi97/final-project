@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
@@ -23,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -32,20 +28,19 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MovieInformation extends AppCompatActivity {
 
+    /**
+     * The Variables for the ProgressBar, Button, EditText, FrameLayout, and String
+     */
     private ProgressBar progress;
     private Button send, saved;
     private EditText search;
@@ -58,9 +53,16 @@ public class MovieInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_information);
         Log.i(ACTIVITY_NAME, "in onCreate()");
-        Toolbar toolbar =
-                (Toolbar)findViewById(R.id.toolbar);
+
+        /**
+         * Toolbar variable and setting the support action
+         */
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /**
+         * Connecting the backend code with the User Interface elements
+         */
         progress = findViewById(R.id.movieprogress);
         send = findViewById(R.id.moviesearch);
         search = findViewById(R.id.movieedit);
@@ -68,6 +70,7 @@ public class MovieInformation extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // The link for the movies
                 String url = formatSearch("http://www.omdbapi.com/?apikey=6c9862c2&r=xml&t="+search.getText());
                 new MovieQuery().execute(url);
             }
@@ -83,6 +86,9 @@ public class MovieInformation extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * Inflating the Menu resource
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
@@ -90,21 +96,28 @@ public class MovieInformation extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * Handling each item id in onOptionsItemSelected()
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         Intent nextScreen;
         switch (item.getItemId()){
+            // Selecting the OC Transpo option
             case (R.id.OCTranspo_menuitem):
                 nextScreen = new Intent(MovieInformation.this, OCTranspoBusRouteApp.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Movie option
             case (R.id.Movie_menuitem):
                 nextScreen = new Intent(MovieInformation.this, MovieInformation.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the Food option
             case (R.id.Food_menuitem):
                 nextScreen = new Intent(MovieInformation.this, FoodNutritionDatabase.class);
                 startActivityForResult(nextScreen, 50);
                 return true;
+            // Selecting the CBC option
             case (R.id.CBC_menuitem):
                 nextScreen = new Intent(MovieInformation.this, CBCNewsReader.class);
                 startActivityForResult(nextScreen, 50);
@@ -114,8 +127,8 @@ public class MovieInformation extends AppCompatActivity {
                 return true;
             default:
                 return false;
-        }
-    }
+        } // End switch case
+    } // End function onOptionsItemSelected
 
     /**
      * Removes spaces from search parameter and replaces them with "+" for compatibility with omd URL.
@@ -159,7 +172,7 @@ public class MovieInformation extends AppCompatActivity {
     }
 
     /**
-     *
+     * Setting the fragment for the Movie list
      */
     public void setListFragment(){
         MovieListFragment fragment = new MovieListFragment();
@@ -181,15 +194,17 @@ public class MovieInformation extends AppCompatActivity {
     }
 
     /**
-     *
+     * Showing the toast and making the texts
      */
     public void showToast(){
         Toast toast = Toast.makeText(this, "Information not found.", Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    /* Inner class for MovieInformation */
     public class MovieQuery extends AsyncTask<String, Integer, String> {
 
+        // The variables in the inner class
         private final String ns = null;
         private String title, year, rating, runtime, actors, plot, poster;
 
@@ -240,6 +255,10 @@ public class MovieInformation extends AppCompatActivity {
                 return info;
         }
 
+        @Override
+        /*
+         * onProgressUpdate is there for to update an progress indicators, or information on your GUI
+         */
         protected void onProgressUpdate(Integer... prog) {
             progress.setProgress(prog[0]);
             progress.setVisibility(View.VISIBLE);
@@ -283,6 +302,7 @@ public class MovieInformation extends AppCompatActivity {
                 if (name.equals("movie")) {
                     publishProgress(75);
                     Log.i(ACTIVITY_NAME, "found movie");
+                    // All of the relevant info for the movie
                     title = parser.getAttributeValue(null, "title");
                     year = parser.getAttributeValue(null, "year");
                     rating = parser.getAttributeValue(null, "rated");
@@ -316,4 +336,4 @@ public class MovieInformation extends AppCompatActivity {
         }
 
     }
-}
+} // End class MovieInformation
