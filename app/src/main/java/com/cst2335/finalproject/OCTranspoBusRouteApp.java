@@ -3,9 +3,11 @@ package com.cst2335.finalproject;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.FrameLayout;
 
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -123,6 +126,27 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
                 return true;
             case (R.id.menuItem):
                 //How to use the application
+                AlertDialog.Builder builder = new AlertDialog.Builder(OCTranspoBusRouteApp.this);
+                LayoutInflater inflater = OCTranspoBusRouteApp.this.getLayoutInflater();
+                final View newView = inflater.inflate(R.layout.new_dialogue, null);
+                builder.setView(newView);
+                TextView helpMessage = (TextView)newView.findViewById(R.id.dialogText);
+                helpMessage.setText("Test");
+                /*builder.setPositiveButton(R.string.positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText newMessage = (EditText)newView.findViewById(R.id.new_message);
+                        currentMessage = newMessage.getText().toString();
+                        Toast.makeText(MovieInformation.this,"Message saved in item 1", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+                builder.setNegativeButton(R.string.negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                builder.create().show();
                 return true;
             default:
                 return false;

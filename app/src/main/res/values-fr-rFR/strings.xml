@@ -18,5 +18,6 @@
     <string name="saved">Sauvé</string>
     <string name="back">Retour</string>
     <string name="home">La maison</string>
+    <string name="negativeButton">Annuler</string>
 
 </resources>
