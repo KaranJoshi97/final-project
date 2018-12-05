@@ -26,14 +26,19 @@ import java.util.ArrayList;
 
 public class MovieListFragment extends Fragment {
 
+    /**
+     * The Variables for the String, ListView, ArrayList, MovieDatabaseHelper, and SQLLiteDatabase
+     */
     private final String ACTIVITY_NAME = "MovieListFragment";
     private ListView listView;
     private ArrayList<String[]> list;
     private MovieDatabaseHelper mdh;
     private SQLiteDatabase db;
 
-    public MovieListFragment() {}
+    // Empty Fragment
+    public MovieListFragment() {
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +59,7 @@ public class MovieListFragment extends Fragment {
     }
 
     /**
-     *
+     * Setting the database to list the movies
      * @param db
      * @param mdh
      */
@@ -68,6 +73,7 @@ public class MovieListFragment extends Fragment {
         }
     }
 
+    /* Inner class for MovieListFragment */
     private class MovieAdapter extends ArrayAdapter<String[]> {
 
         private MovieAdapter(Context ctx){super(ctx, 0); }
@@ -78,6 +84,7 @@ public class MovieListFragment extends Fragment {
 
         public View getView(final int position, View convertView, ViewGroup parent){
             Log.i(ACTIVITY_NAME, "In getView");
+            // This will recreate your View that you made in the resource file.
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View result = inflater.inflate(R.layout.movie_row, null);
             ImageView poster = result.findViewById(R.id.movieposterrow);
@@ -89,6 +96,7 @@ public class MovieListFragment extends Fragment {
             }
             poster.setImageBitmap(BitmapFactory.decodeStream(fis));
             TextView title = result.findViewById(R.id.movietitlerow);
+            // get the string at position
             title.setText(getItem(position)[0] + " (" + getItem(position)[1] + ")");
             ImageView close = result.findViewById(R.id.movieclosebutton);
             close.setOnClickListener(new View.OnClickListener(){
@@ -110,5 +118,5 @@ public class MovieListFragment extends Fragment {
 
     }
 
-}
+} // End class MovieListFragment
 

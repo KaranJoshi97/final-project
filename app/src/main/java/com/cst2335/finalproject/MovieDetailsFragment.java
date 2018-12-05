@@ -32,7 +32,9 @@ import java.net.URL;
 
 public class MovieDetailsFragment extends Fragment {
 
-    // Variables
+    /**
+     * Variables for data types and user interfaces
+     */
     private final String ACTIVITY_NAME = "MovieDetailsFragment";
     private Button save, back;
     private TextView title, year, rating, runtime, actors, plot;
@@ -53,9 +55,13 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View rootView = inflater.inflate(R.layout.fragment_movie_details, container, false);
+        /**
+         * Connecting the backend code with the User Interface elements
+         */
         title = (TextView) rootView.findViewById(R.id.movietitle);
         year = (TextView) rootView.findViewById(R.id.movieyear);
         rating = (TextView) rootView.findViewById(R.id.movierating);
@@ -68,6 +74,7 @@ public class MovieDetailsFragment extends Fragment {
 
              @Override
              public void onClick(View v) {
+                 // Content Values
                  ContentValues cValues = new ContentValues();
                  cValues.put(MovieDatabaseHelper.KEY_TITLE, t);
                  cValues.put(MovieDatabaseHelper.KEY_YEAR, y);
@@ -94,6 +101,11 @@ public class MovieDetailsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * The view created for the movies
+     * @param view
+     * @param savedInstanceState
+     */
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.title.setText(t+"("+y+")");
         //this.year.setText(y);
@@ -105,7 +117,7 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     /**
-     *
+     * Setting the relevant info for the movie
      * @param title
      * @param year
      * @param rating
@@ -124,6 +136,7 @@ public class MovieDetailsFragment extends Fragment {
         po = poster;
     }
 
+    /* Inner class for MovieDetailsFragment */
     class RetrievePosterTask extends AsyncTask<String, Integer, Bitmap> {
 
         protected Bitmap doInBackground (String... url) {
@@ -155,12 +168,15 @@ public class MovieDetailsFragment extends Fragment {
                 pbm = bm;
             }
             return bm;
-        }
+        } // End function doInBackground
 
         protected void onPostExecute(Bitmap result){
             poster.setImageBitmap(pbm);
         }
 
+        /**
+         * Retrieving the bitmap with the url
+         */
         private Bitmap getImage(URL url) {
             HttpURLConnection connection = null;
             try {
@@ -178,8 +194,13 @@ public class MovieDetailsFragment extends Fragment {
                     connection.disconnect();
                 }
             }
-        }
+        } // End function Bitmap
 
+        /**
+         * Retrieving the bitmap with the string
+         * @param urlString
+         * @return
+         */
         private Bitmap getImage(String urlString) {
             try {
                 Log.i(ACTIVITY_NAME, urlString);
@@ -188,7 +209,7 @@ public class MovieDetailsFragment extends Fragment {
             } catch (MalformedURLException e) {
                 return null;
             }
-        }
+        } // End function Bitmap
     }
 
     @Override
@@ -199,7 +220,6 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 
     /**
@@ -216,4 +236,4 @@ public class MovieDetailsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-}
+} // End class MovieDetailsFragment

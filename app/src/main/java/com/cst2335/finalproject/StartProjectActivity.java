@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -23,14 +22,18 @@ public class StartProjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_project);
         Log.i(ACTIVITY_NAME, "In onCreate()"); // Step 3 for Lab 3
 
-        Toolbar toolbar =
-                (Toolbar)findViewById(R.id.toolbar);
+        /**
+         * Toolbar variable and setting the support action
+         */
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
     }
 
-
     @Override
+    /**
+     * Inflating the Menu resource
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
@@ -38,6 +41,9 @@ public class StartProjectActivity extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * Handling each item id in onOptionsItemSelected()
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         Intent nextScreen;
         switch (item.getItemId()){
@@ -66,14 +72,12 @@ public class StartProjectActivity extends AppCompatActivity {
                 return true;
             default:
                 return false;
-        }
-    }
+        } // End switch case
+    } // End function onOptionsItemSelected
 
-    // Step 6 for Lab 3
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
 
-        // Step 11 for Lab 3
         if (requestCode == 50 && responseCode == Activity.RESULT_OK) {
             Log.i(ACTIVITY_NAME, "Returned to StartActivity.onActivityResult");
             String messagePassed = data.getStringExtra("Response");
@@ -82,7 +86,6 @@ public class StartProjectActivity extends AppCompatActivity {
         }
     }
 
-    // Steps 2 and 3 for Lab 3
     @Override
     protected void onResume() {
         super.onResume();
@@ -112,4 +115,7 @@ public class StartProjectActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
-}
+
+} // End Class StartProjectActivity
+
+
