@@ -204,6 +204,12 @@ public class MovieInformation extends AppCompatActivity {
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.movieframe, fragment).addToBackStack(null);
         frame.removeAllViews();
         ft.commit();
+        //https://stackoverflow.com/a/1109108
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /**

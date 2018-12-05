@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -198,6 +199,12 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
             String[] s = {stop, route_number.get(i), route_heading.get(i), route_direction.get(i), route_direction_id.get(i)};
             octList.addToList(s);
         }
+        //https://stackoverflow.com/a/1109108
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /**
@@ -220,6 +227,12 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
             String [] s = {trip_destination.get(i), trip_start_time.get(i), trip_gps_speed.get(i), trip_schedule_time.get(i), trip_longitude.get(i), trip_lattitude.get(i)};
             octDetails.addToList(s);
         }
+        //https://stackoverflow.com/a/1109108
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /**
@@ -230,6 +243,12 @@ public class OCTranspoBusRouteApp extends AppCompatActivity {
         FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.bus_frame, octFavs).addToBackStack(null);
         frameLayout.removeAllViews();
         ft.commit();
+        //https://stackoverflow.com/a/1109108
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /**
